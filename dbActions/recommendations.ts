@@ -40,6 +40,12 @@ const addRecommendation = async (payload: RecommendationPayload) => {
 		const cookieStore = await cookies();
 		const token = cookieStore.get('sessionId')?.value;
 
+		console.log('sessionId', token);
+
+		if (!token) {
+			return {error: 'You must be logged in to add a recommendation'};
+		}
+
 		const response = await axios.post(
 			`${url}/recommendation`,
 			{
@@ -51,6 +57,8 @@ const addRecommendation = async (payload: RecommendationPayload) => {
 				}
 			}
 		);
+
+		console.log(response)
 
 		return {success: response.data.data.message};
 	} catch (error: any) {

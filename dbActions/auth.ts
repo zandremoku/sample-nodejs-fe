@@ -61,7 +61,7 @@ const loginUser = async (payload: UserLoginPayload) => {
 			password
 		});
 
-		console.log(response);
+		console.log('loginUser', response);
 		const token = response.data.token;
 		cookieStore.set('sessionId', token, {
 			httpOnly: true,

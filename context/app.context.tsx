@@ -1,6 +1,7 @@
 "use client";
 
 import React, {createContext, Dispatch, useEffect, useMemo, useReducer} from "react";
+import Header                                                           from '@/components/header/header';
 
 type StateType = {
 	language?: string;
@@ -65,7 +66,7 @@ export const AppContextProvider = ({children, lang}: { children: React.ReactNode
 
 	return (
 		<AppContext.Provider value={contextValue}>
-			{/*<Header/>*/}
+			<Header/>
 			{/*<main className={state.blurMain ? 'blurred' : undefined}>{children}</main>*/}
 			<main>{children}</main>
 		</AppContext.Provider>

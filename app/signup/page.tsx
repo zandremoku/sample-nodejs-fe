@@ -1,5 +1,4 @@
 import SignupForm from '@/components/signup-form';
-import Link       from 'next/link';
 
 export default function SignupPage() {
 	return (
@@ -9,13 +8,6 @@ export default function SignupPage() {
 					Sign Up
 				</h1>
 				<SignupForm></SignupForm>
-				<div>
-					<Link
-						href="/login"
-						prefetch
-						className="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset"
-					>Login</Link>
-				</div>
 			</div>
 		</div>
 	);
