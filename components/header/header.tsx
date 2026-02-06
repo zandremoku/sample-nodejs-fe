@@ -1,21 +1,23 @@
-import Link                     from 'next/link';
-import {useEffect, useState}    from 'react';
-import {checkAuth, logOut}      from '@/dbActions/auth';
+import Link                              from 'next/link';
+import {useContext, useEffect, useState} from 'react';
+import {checkAuth, logOut}               from '@/dbActions/auth';
 import {useRouter}                     from 'next/navigation';
 import {Bounce, toast, ToastContainer} from 'react-toastify';
+import {AppContext} from '@/context/app.context';
 
 export default function Header() {
-	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const router = useRouter();
+
+	const {dispatch, state} = useContext(AppContext);
 
 	useEffect(() => {
 		const fetchLoggedInUser = async () => {
 			try {
 				const response = await checkAuth();
 				if (response.success) {
-					setIsAuthenticated(true);
+					dispatch({type: 'set-is-authenticated', payload: true})
 				} else {
-					setIsAuthenticated(false);
+					dispatch({type: 'set-is-authenticated', payload: false})
 				}
 			} catch (error) {
 			}
@@ -39,7 +41,7 @@ export default function Header() {
 				transition: Bounce
 			});
 		}
-		setIsAuthenticated(false);
+		dispatch({type: 'set-is-authenticated', payload: false})
 		router.push('/login');
 	};
 
@@ -77,7 +79,7 @@ export default function Header() {
 						id="nav-content"
 					>
 						<div className="auth flex items-center w-full md:w-full">
-							{isAuthenticated ? (
+							{state.isAuthenticated ? (
 								<button
 									onClick={logoutHandler}
 									className="bg-transparent text-gray-800  p-2 rounded border border-gray-300 mr-4 hover:bg-gray-100 hover:text-gray-700"

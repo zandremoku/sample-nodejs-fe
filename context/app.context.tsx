@@ -6,10 +6,11 @@ import Header                                                           from '@/
 type StateType = {
 	language?: string;
 	isMobile?: boolean;
+	isAuthenticated?: boolean;
 };
 
 type ActionType = {
-	type: 'set-language' | 'set-is-mobile';
+	type: 'set-language' | 'set-is-mobile' | 'set-is-authenticated';
 	payload?: any
 };
 
@@ -23,6 +24,8 @@ const reducer = (state: StateType, action: ActionType) => {
 			return {...state, language: action.payload};
 		case "set-is-mobile":
 			return {...state, isMobile: action.payload};
+		case "set-is-authenticated":
+			return {...state, isAuthenticated: action.payload};
 		default:
 			return state;
 	}

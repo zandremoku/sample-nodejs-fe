@@ -1,32 +1,24 @@
 'use client';
 
-import {useState}                      from 'react';
+import {useContext, useState}          from 'react';
 import InputField                      from '@/components/input';
 import {loginUser}                     from '@/dbActions/auth';
 import {Bounce, toast, ToastContainer} from 'react-toastify';
 import {useRouter}                     from 'next/navigation';
+import {AppContext}                    from '@/context/app.context';
 
 const LoginForm = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const router = useRouter();
 
+	const {dispatch, state} = useContext(AppContext);
+
 	const handleSubmit = async (e: any) => {
 		e.preventDefault();
-		console.log('Login attempt:', {email, password});
 		const response = await loginUser({email, password});
-		if (response.success){
-			toast.success(response.success, {
-				position: 'top-right',
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: false,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				theme: 'light',
-				transition: Bounce
-			});
+		if (response.success) {
+			dispatch({type: 'set-is-authenticated', payload: true});
 			await router.push('/');
 		} else {
 			toast.error(response.error, {
