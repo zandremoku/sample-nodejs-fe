@@ -6,7 +6,7 @@ const publicRoutes = ['/login', '/signup', '/api'];
 const byPassPaths = ['/images', 'assets', '/_next', '/favico.ico'];
 
 
-export async function middleware (request: NextRequest){
+export async function proxy (request: NextRequest){
 	const path = request.nextUrl.pathname;
 	if(byPassPaths.some(p=>path.startsWith(p)) || path.startsWith('api')){
 		return NextResponse.next();
