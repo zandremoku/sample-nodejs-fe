@@ -17,7 +17,7 @@ export interface UserLoginPayload {
 	password: string;
 }
 
-const url = process.env.API_URL;
+const url = process.env.NEXT_PUBLIC_API_URL;
 
 const createUser = async (payload: UserCreatePayload) => {
 	try {
