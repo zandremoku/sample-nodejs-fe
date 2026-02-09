@@ -1,10 +1,10 @@
 'use client';
 
-import InputField                      from '@/components/input';
-import {useState}                      from 'react';
-import {Bounce, toast, ToastContainer} from 'react-toastify';
-import {createUser}                    from '@/dbActions/auth';
-import {useRouter}                     from 'next/navigation';
+import InputField      from '@/components/input';
+import {useState}      from 'react';
+import {Bounce, toast} from 'react-toastify';
+import {createUser}    from '@/dbActions/auth';
+import {useRouter}     from 'next/navigation';
 
 interface SignUpFormParams {
 	onSomething?: (p: { a: string }) => void;
@@ -22,17 +22,7 @@ const SignupForm: React.FC<SignUpFormParams> = (props) => {
 		e.preventDefault();
 		console.log('Signup attempt:', {username, email, password});
 		if (confirmPassword !== password) {
-			toast.error('Password and Confirm Password should be the same', {
-				position: 'top-right',
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: false,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				theme: 'light',
-				transition: Bounce
-			});
+			toast.error('Password and Confirm Password should be the same');
 			return;
 		}
 		// props.onSomething({a});
@@ -41,48 +31,14 @@ const SignupForm: React.FC<SignUpFormParams> = (props) => {
 			setEmail('');
 			setPassword('');
 			setConfirmPassword('');
-			toast.success(response.success, {
-				position: 'top-right',
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: false,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				theme: 'light',
-				transition: Bounce
-			});
+			toast.success(response.success);
 			await router.push('/login');
 		} else {
-			toast.error(response.error, {
-				position: 'top-right',
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: false,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				theme: 'light',
-				transition: Bounce
-			});
+			toast.error(response.error);
 		}
 
 	};
-	return <>
-		<ToastContainer
-			position="top-right"
-			autoClose={5000}
-			hideProgressBar={false}
-			newestOnTop={false}
-			closeOnClick={false}
-			rtl={false}
-			pauseOnFocusLoss
-			draggable
-			pauseOnHover
-			theme="light"
-			aria-label="toast"
-			transition={Bounce}
-		/>
+	return (
 		<form onSubmit={handleSubmit} className="space-y-4">
 			<InputField
 				type="text"
@@ -120,7 +76,7 @@ const SignupForm: React.FC<SignUpFormParams> = (props) => {
 				Sign Up
 			</button>
 		</form>
-	</>;
+	);
 };
 
 export default SignupForm;

@@ -1,11 +1,11 @@
 'use client';
 
-import {useContext, useState}          from 'react';
-import InputField                      from '@/components/input';
-import {loginUser}                     from '@/dbActions/auth';
-import {Bounce, toast, ToastContainer} from 'react-toastify';
-import {useRouter}                     from 'next/navigation';
-import {AppContext}                    from '@/context/app.context';
+import {useContext, useState} from 'react';
+import InputField             from '@/components/input';
+import {loginUser}            from '@/dbActions/auth';
+import {Bounce, toast}        from 'react-toastify';
+import {useRouter}            from 'next/navigation';
+import {AppContext}           from '@/context/app.context';
 
 const LoginForm = () => {
 	const [email, setEmail] = useState('');
@@ -21,35 +21,11 @@ const LoginForm = () => {
 			dispatch({type: 'set-is-authenticated', payload: true});
 			await router.push('/');
 		} else {
-			toast.error(response.error, {
-				position: 'top-right',
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: false,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				theme: 'light',
-				transition: Bounce
-			});
+			toast.error(response.error);
 		}
 	};
 
-	return <>
-		<ToastContainer
-			position="top-right"
-			autoClose={5000}
-			hideProgressBar={false}
-			newestOnTop={false}
-			closeOnClick={false}
-			rtl={false}
-			pauseOnFocusLoss
-			draggable
-			pauseOnHover
-			theme="light"
-			aria-label="toast"
-			transition={Bounce}
-		/>
+	return (
 		<form onSubmit={handleSubmit} className="space-y-4">
 			<InputField
 				type="email"
@@ -70,7 +46,7 @@ const LoginForm = () => {
 				Login
 			</button>
 		</form>
-	</>;
+	);
 };
 
 export default LoginForm;

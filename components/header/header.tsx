@@ -1,9 +1,9 @@
 import Link                              from 'next/link';
 import {useContext, useEffect, useState} from 'react';
 import {checkAuth, logOut}               from '@/dbActions/auth';
-import {useRouter}                     from 'next/navigation';
-import {Bounce, toast, ToastContainer} from 'react-toastify';
-import {AppContext} from '@/context/app.context';
+import {useRouter}                       from 'next/navigation';
+import {toast}                           from '@/lib/toast';
+import {AppContext}                      from '@/context/app.context';
 
 export default function Header() {
 	const router = useRouter();
@@ -29,37 +29,13 @@ export default function Header() {
 	const logoutHandler = async () => {
 		const response = await logOut();
 		if (response.error) {
-			toast.error(response.error, {
-				position: 'top-right',
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: false,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				theme: 'light',
-				transition: Bounce
-			});
+			toast.error(response.error);
 		}
 		dispatch({type: 'set-is-authenticated', payload: false})
 		router.push('/login');
 	};
 
-	return (<>
-			<ToastContainer
-				position="top-right"
-				autoClose={5000}
-				hideProgressBar={false}
-				newestOnTop={false}
-				closeOnClick={false}
-				rtl={false}
-				pauseOnFocusLoss
-				draggable
-				pauseOnHover
-				theme="light"
-				aria-label="toast"
-				transition={Bounce}
-			/>
+	return (
 			<nav id="header" className="w-full z-30 top-10 py-1 bg-white shadow-lg border-b border-b-gray-500">
 				<div className="w-full flex items-center justify-between mt-0 px-6 py-2">
 					<div className=" flex items-center w-1/2 md:w-3/4 " id="menu">
@@ -79,13 +55,21 @@ export default function Header() {
 						id="nav-content"
 					>
 						<div className="auth flex items-center w-full md:w-full">
-							{state.isAuthenticated ? (
-								<button
-									onClick={logoutHandler}
-									className="bg-transparent text-gray-800  p-2 rounded border border-gray-300 mr-4 hover:bg-gray-100 hover:text-gray-700"
-								>
-									Log Out
-								</button>
+							{state.isAuthenticated ? ( <>
+									<Link
+										href="/my-results-list"
+										className="bg-transparent text-gray-800  p-2 rounded border border-gray-300 mr-4 hover:bg-gray-100 hover:text-gray-700"
+									>
+										My results
+									</Link>
+									<button
+										onClick={logoutHandler}
+										className="bg-transparent text-gray-800  p-2 rounded border border-gray-300 mr-4 hover:bg-gray-100 hover:text-gray-700"
+									>
+										Log Out
+									</button>
+								</>
+
 							) : (
 								<>
 									<Link
@@ -106,6 +90,5 @@ export default function Header() {
 					</div>
 				</div>
 			</nav>
-		</>
 	);
 }
