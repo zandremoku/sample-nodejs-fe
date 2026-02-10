@@ -65,7 +65,7 @@ const SignupForm: React.FC<SignUpFormParams> = (props) => {
 				type="password"
 				value={confirmPassword}
 				setValue={setConfirmPassword}
-				label="Password"
+				label="Confirm password"
 				required={true}
 			/>
 			<button
