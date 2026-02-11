@@ -39,7 +39,7 @@ export default function Header() {
 			<nav id="header" className="w-full z-30 top-10 py-1 bg-white shadow-lg border-b border-b-gray-500">
 				<div className="w-full flex items-center justify-between mt-0 px-6 py-2">
 					<div className=" flex items-center w-1/2 md:w-3/4 " id="menu">
-						<ul className="flex items-center justify-between text-base text-black pt-4 md:pt-0">
+						<ul className="flex items-center justify-between text-base text-black pt-0">
 							<li>
 								<Link
 									className="inline-block no-underline hover:text-gray-700 font-medium text-lg py-2 px-4 lg:-ml-2"
@@ -58,13 +58,13 @@ export default function Header() {
 							{state.isAuthenticated ? ( <>
 									<Link
 										href="/my-results-list"
-										className="bg-transparent text-gray-800  p-2 rounded border border-gray-300 mr-4 hover:bg-gray-100 hover:text-gray-700"
+										className="bg-transparent text-gray-800  p-2 rounded border border-gray-300 mr-4 hover:bg-gray-100 hover:text-gray-700 whitespace-nowrap"
 									>
 										My results
 									</Link>
 									<button
 										onClick={logoutHandler}
-										className="bg-transparent text-gray-800  p-2 rounded border border-gray-300 mr-4 hover:bg-gray-100 hover:text-gray-700"
+										className="bg-transparent text-gray-800  p-2 rounded border border-gray-300 mr-4 hover:bg-gray-100 hover:text-gray-700 whitespace-nowrap"
 									>
 										Log Out
 									</button>

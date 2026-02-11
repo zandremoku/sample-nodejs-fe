@@ -71,7 +71,7 @@ const SignupForm: React.FC<SignUpFormParams> = (props) => {
 			<button
 				type="submit"
 				disabled={!password || !username || !email || !confirmPassword}
-				className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-semibold rounded-lg transition duration-200"
+				className="w-full py-3 px-4 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white font-semibold rounded-lg transition duration-200"
 			>
 				Sign Up
 			</button>

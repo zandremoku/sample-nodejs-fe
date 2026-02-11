@@ -53,14 +53,14 @@ const Home = () => {
 					<button onClick={()=>{
 						setFormResult('');
 					}}
-							className="bg-blue-400 hover:bg-blue-300 text-white px-4 py-2 cursor-pointer">New enquiry
+							className="py-3 px-4 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white font-semibold rounded-lg transition duration-200">New enquiry
 					</button>
 				</>
 
 				: <>
 					<h1>Welcome! Please fill the form in order to get your result!</h1>
 					<form onSubmit={handleSubmit}>
-						<div className="grid grid-cols-3 gap-3">
+						<div className="grid grid-cols-1 md:grid-cols-3 gap-3">
 							<InputField value={age} setValue={setAge} label={'Age'} type="number"></InputField>
 							<InputField value={income} setValue={setIncome} label={'Income'}></InputField>
 							<InputField value={risk} setValue={setRisk} label={'Risk'} type="select"
@@ -68,7 +68,7 @@ const Home = () => {
 						</div>
 						<div className="mt-4 flex justify-center sm:justify-end">
 							<button type="submit"
-									className="bg-blue-400 hover:bg-blue-300 text-white px-4 py-2 cursor-pointer">Submit
+									className="py-3 px-4 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white font-semibold rounded-lg transition duration-200">Submit
 							</button>
 						</div>
 					</form>

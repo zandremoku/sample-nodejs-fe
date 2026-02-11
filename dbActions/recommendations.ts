@@ -20,14 +20,14 @@ const addRecommendation = async (payload: RecommendationPayload) => {
 			parseInt(age.toString()) < 0 ||
 			parseInt(age.toString()) > 150
 		) {
-			return {error: 'Age is required'};
+			return {error: 'Age is required and must between 0 and 100'};
 		}
 		if (
 			!income ||
 			!parseInt(income.toString()) ||
 			parseInt(income.toString()) < 0
 		) {
-			return {error: 'income is required'};
+			return {error: 'income is required and cannot be less than 0'};
 		}
 
 		const riskList = ['low', 'medium', 'high'];

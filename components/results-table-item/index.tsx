@@ -23,7 +23,7 @@ const ResultsTableItem : React.FC<ResultsTableItemParams> = ({itemData, deleteCl
 						}
 					}}
 					disabled={isDeleting}
-					className="bg-blue-400 hover:bg-blue-300 text-white px-4 py-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+					className="py-1 px-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition duration-200 disabled:cursor-not-allowed"
 				>
 					{isDeleting ? 'Deleting...' : 'Delete'}
 				</button>

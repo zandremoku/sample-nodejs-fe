@@ -33,7 +33,7 @@ const ResultsList: React.FC<ResultsListProps> = ({ data }) => {
 	};
 
 	return (
-		<div className="border border-b-cyan-700 max-w-1/2">
+		<div className="border border-b-cyan-700 max-w-full mx-4 md:max-w-3/4 lg:max-w-1/2">
 			{data && (
 				<div>
 					<div className="grid grid-cols-5 p-4 border-b border-b-cyan-700">
