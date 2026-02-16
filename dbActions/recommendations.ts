@@ -61,8 +61,9 @@ const addRecommendation = async (payload: RecommendationPayload) => {
 		console.log(response)
 
 		return {success: response.data.data.message};
-	} catch (error: any) {
-		return {error: error.message};
+	} catch (err: any) {
+		const apiError = err?.response?.data?.error;
+		return {error: apiError ?? err.message ?? 'Something went wrong'};
 	}
 };
 

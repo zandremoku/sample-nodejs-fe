@@ -1,7 +1,7 @@
 'use client';
 
 import InputField      from '@/components/input';
-import {useState}      from 'react';
+import {useState, useTransition}      from 'react';
 import {Bounce, toast} from 'react-toastify';
 import {createUser}    from '@/dbActions/auth';
 import {useRouter}     from 'next/navigation';
@@ -15,6 +15,7 @@ const SignupForm: React.FC<SignUpFormParams> = (props) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
+	const [isPending, startTransition] = useTransition();
 
 	const router = useRouter();
 
@@ -25,17 +26,26 @@ const SignupForm: React.FC<SignUpFormParams> = (props) => {
 			toast.error('Password and Confirm Password should be the same');
 			return;
 		}
-		// props.onSomething({a});
-		const response = await createUser({username, email, password, confirmPassword});
-		if (response.success) {
-			setEmail('');
-			setPassword('');
-			setConfirmPassword('');
-			toast.success(response.success);
-			await router.push('/login');
-		} else {
-			toast.error(response.error);
-		}
+		if (isPending) return;
+		startTransition(() => {
+			void (async () => {
+				try {
+					const response = await createUser({username, email, password, confirmPassword});
+					if (response.success) {
+						setEmail('');
+						setPassword('');
+						setConfirmPassword('');
+						toast.success(response.success);
+						await router.push('/login');
+					} else {
+						toast.error(response.error);
+					}
+				} catch (err) {
+					toast.error('Something went wrong. Please try again.');
+					console.error(err);
+				}
+			})();
+		});
 
 	};
 	return (
@@ -70,10 +80,11 @@ const SignupForm: React.FC<SignUpFormParams> = (props) => {
 			/>
 			<button
 				type="submit"
-				disabled={!password || !username || !email || !confirmPassword}
-				className="w-full py-3 px-4 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white font-semibold rounded-lg transition duration-200"
+				disabled={isPending || !password || !username || !email || !confirmPassword}
+				className="w-full py-3 px-4 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white font-semibold rounded-lg transition duration-200 flex items-center justify-center gap-2"
 			>
-				Sign Up
+				{isPending && <span className="h-4 w-4 border-2 border-white/70 border-t-transparent rounded-full animate-spin" aria-hidden/>}
+				{isPending ? 'Creating account…' : 'Sign Up'}
 			</button>
 		</form>
 	);

@@ -42,7 +42,9 @@ const createUser = async (payload: UserCreatePayload) => {
 
 		return {success: 'User created Successfully'};
 	} catch (err: any) {
-		return {error: err.message};
+		// Prefer API-provided message (e.g., "Email already in use") over generic axios message
+		const apiError = err?.response?.data?.error;
+		return {error: apiError ?? err.message ?? 'Something went wrong'};
 	}
 };
 
@@ -71,7 +73,8 @@ const loginUser = async (payload: UserLoginPayload) => {
 
 		return {success: 'Login Successfully'};
 	} catch (err: any) {
-		return {error: err.message};
+		const apiError = err?.response?.data?.error;
+		return {error: apiError ?? err.message ?? 'Something went wrong'};
 	}
 };
 
@@ -82,7 +85,8 @@ const logOut = async () => {
 
 		return {success: true};
 	} catch (err: any) {
-		return {error: err.message};
+		const apiError = err?.response?.data?.error;
+		return {error: apiError ?? err.message ?? 'Something went wrong'};
 	}
 };
 
