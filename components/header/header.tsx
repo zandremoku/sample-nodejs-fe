@@ -57,10 +57,10 @@ export default function Header() {
 						<div className="auth flex items-center w-full md:w-full">
 							{state.isAuthenticated ? ( <>
 									<Link
-										href="/my-results-list"
+										href="/my-travel-experiences"
 										className="bg-transparent text-gray-800  p-2 rounded border border-gray-300 mr-4 hover:bg-gray-100 hover:text-gray-700 whitespace-nowrap"
 									>
-										My results
+										My travel experiences
 									</Link>
 									<button
 										onClick={logoutHandler}

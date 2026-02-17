@@ -1,0 +1,31 @@
+'use server';
+
+import axios from 'axios';
+import { cookies } from 'next/headers';
+import { revalidatePath } from 'next/cache';
+
+const url = process.env.NEXT_PUBLIC_API_URL;
+
+export async function deleteTravelExperience(id: number) {
+	try {
+		const cookieStore = await cookies();
+		const token = cookieStore.get('sessionId')?.value;
+
+		const response = await axios.delete(
+			`${url}/travel-experience/${id}`,
+			{
+				headers: {
+					Authorization: token
+				}
+			}
+		);
+
+		// Revalidate the page to refresh the data
+		revalidatePath('/my-travel-experiences');
+
+		return { success: true };
+	} catch (error) {
+		console.error('Delete error:', error);
+		return { success: false, error: 'Failed to delete travel experience' };
+	}
+}
