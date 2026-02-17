@@ -2,12 +2,12 @@
 
 import { toast } from '@/lib/toast';
 import ResultsTableItem from '@/components/results-table-item';
-import { RecommendationResponse } from '@/app/my-results-list/page';
-import { deleteRecommendation } from '@/app/my-results-list/actions';
+import { TravelExperienceResponse } from '@/app/my-travel-experiences/page';
+import { deleteTravelExperience } from '@/app/my-travel-experiences/actions';
 import { useState } from 'react';
 
 interface ResultsListProps {
-	data: RecommendationResponse[];
+	data: TravelExperienceResponse[];
 }
 
 const ResultsList: React.FC<ResultsListProps> = ({ data }) => {
@@ -18,12 +18,12 @@ const ResultsList: React.FC<ResultsListProps> = ({ data }) => {
 
 		setIsDeleting(true);
 		try {
-			const result = await deleteRecommendation(idToDelete);
+			const result = await deleteTravelExperience(idToDelete);
 
 			if (result.success) {
-				toast.success('Item successfully deleted');
+				toast.success('Travel experience profile deleted successfully');
 			} else {
-				toast.error('Sorry, could not delete this');
+				toast.error('Sorry, could not delete this profile');
 			}
 		} catch (error) {
 			toast.error('An error occurred while deleting');
@@ -33,25 +33,21 @@ const ResultsList: React.FC<ResultsListProps> = ({ data }) => {
 	};
 
 	return (
-		<div className="border border-b-cyan-700 max-w-full mx-4 md:max-w-3/4 lg:max-w-1/2">
-			{data && (
-				<div>
-					<div className="grid grid-cols-5 p-4 border-b border-b-cyan-700">
-						<h2>Age</h2>
-						<h2>Income</h2>
-						<h2>Risk</h2>
-						<h2>Result</h2>
-						<h2>Actions</h2>
-					</div>
-					{data.length > 0 &&
-						data.map((r: RecommendationResponse) => (
-							<ResultsTableItem
-								key={r.id}
-								itemData={r}
-								deleteClicked={handleDelete}
-								isDeleting={isDeleting}
-							/>
-						))}
+		<div className="w-full max-w-5xl mx-4 space-y-6">
+			{data && data.length > 0 ? (
+				<div className="space-y-6">
+					{data.map((experience: TravelExperienceResponse) => (
+						<ResultsTableItem
+							key={experience.id}
+							itemData={experience}
+							deleteClicked={handleDelete}
+							isDeleting={isDeleting}
+						/>
+					))}
+				</div>
+			) : (
+				<div className="text-center text-gray-500 py-8">
+					No travel experience profiles found
 				</div>
 			)}
 		</div>
