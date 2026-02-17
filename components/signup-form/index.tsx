@@ -52,6 +52,7 @@ const SignupForm: React.FC<SignUpFormParams> = (props) => {
 		<form onSubmit={handleSubmit} className="space-y-4">
 			<InputField
 				type="text"
+				disabled={isPending}
 				value={username}
 				setValue={setUsername}
 				label="Username"
@@ -59,6 +60,7 @@ const SignupForm: React.FC<SignUpFormParams> = (props) => {
 			/>
 			<InputField
 				type="email"
+				disabled={isPending}
 				value={email}
 				setValue={setEmail}
 				label="Email"
@@ -66,6 +68,7 @@ const SignupForm: React.FC<SignUpFormParams> = (props) => {
 			/>
 			<InputField
 				type="password"
+				disabled={isPending}
 				value={password}
 				setValue={setPassword}
 				label="Password"
@@ -73,6 +76,7 @@ const SignupForm: React.FC<SignUpFormParams> = (props) => {
 			/>
 			<InputField
 				type="password"
+				disabled={isPending}
 				value={confirmPassword}
 				setValue={setConfirmPassword}
 				label="Confirm password"
