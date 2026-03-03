@@ -1,6 +1,8 @@
 import { cookies } from 'next/headers';
 import axios from 'axios';
 import ResultsList from '@/components/results-list';
+import { navigate } from 'next/dist/client/components/segment-cache/navigation';
+import Link from 'next/link';
 
 const url = process.env.NEXT_PUBLIC_API_URL;
 
@@ -62,7 +64,15 @@ export default async function MyTravelExperiencesPage() {
 				</div>
 			)}
 			{experiences.length === 0 ? (
-				<p className="text-gray-600 mt-8">No travel experience profiles yet. Create one to get started!</p>
+				<div className="flex flex-col gap-4 items-center">
+					<p className="text-gray-600 mt-8">No travel experience profiles yet. Create one to get started!</p>
+					<Link
+						href="/"
+						className="py-3 px-6 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white font-semibold rounded-lg transition duration-200 inline-block"
+					>
+						Create New Profile
+					</Link>
+				</div>
 			) : (
 				<ResultsList data={experiences} />
 			)}
