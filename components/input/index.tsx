@@ -2,8 +2,8 @@ import React from 'react';
 
 interface InputFieldType {
 	type?: 'text' | 'select' | 'number' | 'password' | 'email';
-	value: string;
-	setValue: (value: string) => void;
+	value: any;
+	setValue: (value: any) => void;
 	label: string;
 	options?: string[];
 	required?: boolean;

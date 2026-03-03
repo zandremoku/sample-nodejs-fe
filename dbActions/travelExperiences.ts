@@ -4,7 +4,7 @@ import {cookies} from 'next/headers';
 
 interface TravelExperiencePayload {
 	age: number;
-	income: string;
+	income: number;
 	riskTolerance: string;
 	fitnessLevel: string;
 	interests: string[];
@@ -22,20 +22,19 @@ const createTravelExperience = async (payload: TravelExperiencePayload) => {
 		if (!age || parseInt(age.toString()) < 1 || parseInt(age.toString()) > 150) {
 			return { error: 'Age is required and must be between 1 and 150' };
 		}
-
-		const incomeList = ['basso', 'medio', 'alto', 'altissimo'];
-		if (!income || !incomeList.includes(income.toLowerCase())) {
-			return { error: 'Income is required and must be one of: basso, medio, alto, altissimo' };
+		console.log(income)
+		if (!income) {
+			return { error: 'Income must be greater than zero' };
 		}
 
-		const riskList = ['basso', 'medio', 'alto'];
+		const riskList = ['low', 'medium', 'high'];
 		if (!riskTolerance || !riskList.includes(riskTolerance.toLowerCase())) {
-			return { error: 'Risk Tolerance is required and must be one of: basso, medio, alto' };
+			return { error: 'Risk Tolerance is required and must be one of: low, medium, high' };
 		}
 
-		const fitnessList = ['sedentario', 'moderato', 'attivo', 'atletico'];
+		const fitnessList = ['sedentary', 'moderately_active', 'vigorously_active', 'extremely_active'];
 		if (!fitnessLevel || !fitnessList.includes(fitnessLevel.toLowerCase())) {
-			return { error: 'Fitness Level is required and must be one of: sedentario, moderato, attivo, atletico' };
+			return { error: 'Fitness Level is required and must be one of: sedentary, moderately_active, vigorously_active, extremely_active' };
 		}
 
 		if (!interests || interests.length === 0) {
@@ -46,14 +45,14 @@ const createTravelExperience = async (payload: TravelExperiencePayload) => {
 			return { error: 'At least one language is required' };
 		}
 
-		const durationList = ['weekend', 'settimana', 'due_settimane', 'mese_o_piu'];
+		const durationList = ['weekend', 'one_week', 'two_weeks', 'three_weeks_plus'];
 		if (!tripDuration || !durationList.includes(tripDuration.toLowerCase())) {
-			return { error: 'Trip Duration is required and must be one of: weekend, settimana, due_settimane, mese_o_piu' };
+			return { error: 'Trip Duration is required and must be one of: weekend, one_week, two_weeks, three_weeks_plus' };
 		}
 
-		const groupList = ['solo', 'coppia', 'amici', 'famiglia_bambini', 'famiglia_adulti'];
+		const groupList = ['solo', 'couple', 'friends', 'family_children', 'family_adults'];
 		if (!travelGroup || !groupList.includes(travelGroup.toLowerCase())) {
-			return { error: 'Travel Group is required and must be one of: solo, coppia, amici, famiglia_bambini, famiglia_adulti' };
+			return { error: 'Travel Group is required and must be one of: solo, couple, friends, family_children, family_adults' };
 		}
 
 		const cookieStore = await cookies();

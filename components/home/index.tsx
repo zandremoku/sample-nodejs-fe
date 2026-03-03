@@ -6,20 +6,19 @@ import {toast}                     from '@/lib/toast';
 import {createTravelExperience}    from '@/dbActions/travelExperiences';
 
 const Home = () => {
-	const incomeList = ['basso', 'medio', 'alto', 'altissimo'];
-	const riskList = ['basso', 'medio', 'alto'];
-	const fitnessList = ['sedentario', 'moderato', 'attivo', 'atletico'];
-	const interestsList = ['natura', 'storia', 'arte', 'gastronomia', 'avventura', 'relax', 'nightlife', 'sport', 'fotografia', 'architettura'];
-	const languagesList = ['italiano', 'inglese', 'spagnolo', 'francese', 'tedesco', 'portoghese', 'arabo', 'giapponese', 'mandarino', 'russo'];
-	const durationList = ['weekend', 'settimana', 'due_settimane', 'mese_o_piu'];
-	const groupList = ['solo', 'coppia', 'amici', 'famiglia_bambini', 'famiglia_adulti'];
+	const riskList = ['low', 'medium', 'high'];
+	const fitnessList = ['sedentary', 'moderately_active', 'vigorously_active', 'extremely_active'];
+	const interestsList = ['nature', 'history', 'art', 'food', 'adventure', 'relax', 'nightlife', 'sport', 'photography', 'architecture'];
+	const languagesList = ['italian', 'english', 'spanish', 'french', 'german', 'portuguese', 'arabic', 'japanese', 'chinese', 'russian'];
+	const durationList = ['weekend', 'one_week', 'two_weeks', 'three_weeks_plus'];
+	const groupList = ['solo', 'couple', 'friends', 'family_children', 'family_adults'];
 
 	const [age, setAge] = useState('');
-	const [income, setIncome] = useState(incomeList[0]);
+	const [income, setIncome] = useState(0);
 	const [riskTolerance, setRiskTolerance] = useState(riskList[0]);
 	const [fitnessLevel, setFitnessLevel] = useState(fitnessList[0]);
 	const [interests, setInterests] = useState<string[]>([]);
-	const [languages, setLanguages] = useState<string[]>(['italiano']);
+	const [languages, setLanguages] = useState<string[]>(['english']);
 	const [tripDuration, setTripDuration] = useState(durationList[0]);
 	const [travelGroup, setTravelGroup] = useState(groupList[0]);
 	const [formResult, setFormResult] = useState<any>(null);
@@ -77,11 +76,11 @@ const Home = () => {
 		toast.success('Travel experience profile created successfully!');
 		setFormResult(response.success);
 		setAge('');
-		setIncome(incomeList[0]);
+		setIncome(0);
 		setRiskTolerance(riskList[0]);
 		setFitnessLevel(fitnessList[0]);
 		setInterests([]);
-		setLanguages(['italiano']);
+		setLanguages(['english']);
 		setTripDuration(durationList[0]);
 		setTravelGroup(groupList[0]);
 	};
@@ -163,7 +162,7 @@ const Home = () => {
 							<h2 className="text-xl font-semibold mb-4">👤 Basic Information</h2>
 							<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 								<InputField value={age} setValue={setAge} label="Age" type="number" />
-								<InputField value={income} setValue={setIncome} label="Income Level" type="select" options={incomeList} />
+								<InputField value={income} setValue={setIncome} label="Income" type="number" />
 								<InputField value={riskTolerance} setValue={setRiskTolerance} label="Risk Tolerance" type="select" options={riskList} />
 								<InputField value={fitnessLevel} setValue={setFitnessLevel} label="Fitness Level" type="select" options={fitnessList} />
 							</div>
